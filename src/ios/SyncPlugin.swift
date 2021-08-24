@@ -66,9 +66,9 @@
                             if let headers = request["headers"] as? [String: String] {
                                 for (key, value) in headers {
                                     print(key, value)
-                                    if !["Accept", "Content-Type"].contains(key) {
+                                    // if !["Accept", "Content-Type"].contains(key) {
                                         urlRequest.addValue(value, forHTTPHeaderField: key)
-                                    }
+                                    // }
                                 }
                             }
                         
@@ -210,7 +210,7 @@
                     if let isDeviceRegisterSuccesfull = isDeviceRegisterSuccesfullDBObj["value"] as? String {
                         if isDeviceRegisterSuccesfull.lowercased().elementsEqual("false") {
                             if let ets = httpResponse["ets"] {
-                                let serverTime = UInt64((ets as! String))!
+                                let serverTime = (ets as! NSNumber).uint64Value
                                 let now = UInt64(Date().timeIntervalSince1970)
                                 let currentOffset = serverTime - now
                                 let allowedOffset = currentOffset > 86400000 ? currentOffset : 0
